@@ -13,8 +13,19 @@ public class Product {
     private String nom;
     private float price;
     private String barcode;
+
     @Nullable
-    private String state;
+    public State getState() {
+        return state;
+    }
+
+    public void setState(@Nullable State state) {
+        this.state = state;
+    }
+
+    @Nullable
+    @Enumerated(EnumType.STRING)
+    private State state;
 
     public int getId() {
         return id;
@@ -48,12 +59,5 @@ public class Product {
         this.barcode = barcode;
     }
 
-    @Nullable
-    public String getState() {
-        return state;
-    }
 
-    public void setState(@Nullable String state) {
-        this.state = state;
-    }
 }

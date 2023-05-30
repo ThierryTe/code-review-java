@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ResponseBody
-@Controller
+@RestController
 public class ProductController {
 
     private final ProductRepository productRepository;

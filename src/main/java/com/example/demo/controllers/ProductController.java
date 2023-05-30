@@ -12,6 +12,7 @@ import java.util.List;
 
 @ResponseBody
 @RestController
+@RequestMapping("/products")
 public class ProductController {
 
     private final ProductRepository productRepository;

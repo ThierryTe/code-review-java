@@ -26,11 +26,7 @@ public class ProductController {
 
     @GetMapping("/")
     public List<Product> findAll() {
-        List<Product> products = new ArrayList<>();
-        for(Product product: productRepository.findAll()) {
-            products.add(product);
-        }
-        return products;
+        return (List<Product>) productRepository.findAll();
     }
 
     @GetMapping("/{id}")

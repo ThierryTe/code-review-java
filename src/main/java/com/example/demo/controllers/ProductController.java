@@ -24,7 +24,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/products")
+    @GetMapping("/")
     public List<Product> findAll() {
         List<Product> products = new ArrayList<>();
         for(Product product: productRepository.findAll()) {
@@ -33,22 +33,22 @@ public class ProductController {
         return products;
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Product> find(@PathVariable int id) throws Exception {
         return ResponseEntity.ok(this.productRepository.findById(id).orElseThrow(() -> new Exception("Product not found")));
     }
 
-    @PostMapping("/products/")
+    @PostMapping("/create")
     public Product save(@RequestBody Product product) {
         return this.productRepository.save(product);
     }
 
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         this.productRepository.deleteById(id);
     }
 
-    @GetMapping("/products/inventory")
+    @GetMapping("/inventory")
     public ProductService.Inventory getInventory() {
         return this.productService.getProductsData();
     }

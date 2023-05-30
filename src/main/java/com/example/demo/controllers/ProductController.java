@@ -3,11 +3,8 @@ package com.example.demo.controllers;
 import com.example.demo.models.Product;
 import com.example.demo.repositories.ProductRepository;
 import com.example.demo.services.ProductService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @ResponseBody
@@ -30,8 +27,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> find(@PathVariable int id) throws Exception {
-        return ResponseEntity.ok(this.productRepository.findById(id).orElseThrow(() -> new Exception("Product not found")));
+    public Product find(@PathVariable int id) {
+        return this.productRepository.findById(id).orElseThrow();
     }
 
     @PostMapping("/create")

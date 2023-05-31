@@ -5,7 +5,6 @@ import com.example.demo.dto.ProductDto;
 import com.example.demo.models.Product;
 import com.example.demo.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 
@@ -13,7 +12,6 @@ import java.util.*;
 
 
 @Service
-@Validated
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 

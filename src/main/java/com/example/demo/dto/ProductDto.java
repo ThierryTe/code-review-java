@@ -1,20 +1,13 @@
-package com.example.demo.models;
+package com.example.demo.dto;
 
+import com.example.demo.models.State;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
-@Entity
-/*@Table(name = "products", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"nom"})
-})*/
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    @Column(unique=true)
+public class ProductDto {
     @NotEmpty
     private String nom;
     @Min(1)
@@ -36,14 +29,6 @@ public class Product {
     @Nullable
     @Enumerated(EnumType.STRING)
     private State state;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getNom() {
         return nom;

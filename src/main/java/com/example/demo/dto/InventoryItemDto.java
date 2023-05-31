@@ -48,4 +48,19 @@ public class InventoryItemDto {
     public void setProductBarcodes(String productBarcodes) {
         this.productBarcodes = productBarcodes;
     }
+
+    public void updateQty(int qty) {
+        this.qty += qty;
+    }
+
+    public void updateTotalPrice(float totalPrice) {
+        this.totalPrice += totalPrice;
+    }
+
+    public void appendBarcodes(String productBarcodes) {
+        if (this.productBarcodes == null)
+            this.productBarcodes = productBarcodes;
+        else
+            this.productBarcodes += "," + productBarcodes;
+    }
 }

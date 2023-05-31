@@ -10,11 +10,11 @@ import java.util.Optional;
 
 public interface ProductService {
 
-    public List<InventoryItemDto> getInventoryList();
+     List<InventoryItemDto> getInventoryList();
 
-    public Product createNewProduct(Product product);
+   Product createNewProduct(Product product);
 
-    public void deleteProductBy(int id);
+     void deleteProductBy(int id);
 
     Iterable<Product> findAll();
 

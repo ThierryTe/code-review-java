@@ -40,7 +40,7 @@ public class ProductController {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<Product> updateExistingProduct(@PathVariable int productId, @RequestBody @Valid ProductDto product) {
+    public ResponseEntity<Product> updateExistingProduct(@PathVariable(name="id") int productId, @RequestBody @Valid ProductDto product) {
         var updatedEntity = productService.updateExistingProduct(productId, product);
         return ResponseEntity.ok(updatedEntity);
 

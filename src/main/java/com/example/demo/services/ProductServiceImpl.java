@@ -1,49 +1,60 @@
 package com.example.demo.services;
 
-import com.example.demo.DTO.InventoryItem;
+import com.example.demo.dto.InventoryItemDto;
 import com.example.demo.models.Product;
 import com.example.demo.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
+
+    private static final int QUANTITY = 1;
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
+
     @Override
-    public List<Product> getProductsData() {
-        List<Product> products = (List<Product>) productRepository.findAll();
+    public List<InventoryItemDto> getProductsData() {
 
-        Map<String, Map<String, Object>> inventory = new HashMap<>();
+        Map<String, InventoryItemDto> inventory = new TreeMap<>();
 
-        for (Product product : products) {
-            String key = product.getNom().toLowerCase();
-            if (inventory.containsKey(key)) {
-                Map<String, Object> productInfo = inventory.get(key);
-                int quantity = (int) productInfo.get("quantity") + 1;
-                float totalPrice = (float) productInfo.get("totalPrice") + product.getPrice();
-                List<String> barcodes = (List<String>) productInfo.get("barcodes");
-                barcodes.add(product.getBarcode());
+        productRepository.findAll().forEach( p -> {
+            String key = p.getNom().toLowerCase();
+            if (inventory.containsKey(key)){
 
-                productInfo.put("quantity", quantity);
-                productInfo.put("totalPrice", totalPrice);
-                productInfo.put("barcodes", barcodes);
-            } else {
-                Map<String, Object> productInfo = new HashMap<>();
-                productInfo.put("quantity", 1);
-                productInfo.put("totalPrice", product.getPrice());
-                productInfo.put("barcodes", new ArrayList<>(Collections.singletonList(product.getBarcode())));
+                InventoryItemDto inventoryItemDto = new InventoryItemDto();
 
-                inventory.put(key, productInfo);
+                inventoryItemDto.setpName(key);
+                inventoryItemDto.setQty(inventory.get(key).getQty() + QUANTITY);
+                inventoryItemDto.setTotalPrice(p.getPrice() + inventory.get(key).getTotalPrice());
+
+                List<String> barcodes = new ArrayList<>();
+                barcodes.add(p.getBarcode());
+
+                barcodes.add(inventory.get(key).productBarcodes);
+                inventoryItemDto.setProductBarcodes(barcodes.stream().collect(Collectors.joining(",")));
             }
+            else {
+            inventory.put(key, new InventoryItemDto(p.getNom(), p.getPrice(), QUANTITY, p.getBarcode()));
         }
+        });
 
-        return (List<Product>) inventory;
+        return inventory.values().stream().toList();
+    }
+
+    @Override
+    public Product saveProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+    @Override
+    public void deleteProduct(int id) {
+        this.productRepository.deleteById(id);
     }
 
 }

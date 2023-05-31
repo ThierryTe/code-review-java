@@ -1,12 +1,15 @@
-package com.example.demo.DTO;
+package com.example.demo.dto;
 
-public class InventoryItem {
-    private final String pName;
+public class InventoryItemDto {
+    private String pName;
     private int qty;
     private float totalPrice;
     public String productBarcodes;
 
-    public InventoryItem(String pName, float totalPrice, int qty, String productBarcodes) {
+    public InventoryItemDto() {
+    }
+
+    public InventoryItemDto(String pName, float totalPrice, int qty, String productBarcodes) {
         this.pName = pName;
         this.totalPrice = totalPrice;
         this.qty = qty;
@@ -16,6 +19,10 @@ public class InventoryItem {
 
     public String getpName() {
         return pName;
+    }
+
+    public void setpName(String pName) {
+        this.pName = pName;
     }
 
     public int getQty() {

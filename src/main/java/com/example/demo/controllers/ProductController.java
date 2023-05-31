@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.models.Product;
 import com.example.demo.repositories.ProductRepository;
 import com.example.demo.services.ProductService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
